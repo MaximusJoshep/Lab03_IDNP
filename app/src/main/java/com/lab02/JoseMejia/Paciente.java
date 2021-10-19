@@ -10,8 +10,7 @@ import android.widget.EditText;
 
 public class Paciente extends AppCompatActivity implements View.OnClickListener {
     EditText dni,nombres,direccion;
-
-    Button registrar;
+    Button button_registrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +19,8 @@ public class Paciente extends AppCompatActivity implements View.OnClickListener 
         dni=(EditText) findViewById(R.id.dni);
         nombres=(EditText) findViewById(R.id.nombre);
         direccion=(EditText) findViewById(R.id.direcccion);
-        registrar = (Button)findViewById(R.id.registrar);
-        registrar.setOnClickListener(this);
+        button_registrar = (Button)findViewById(R.id.registrar);
+        button_registrar.setOnClickListener(this);
     }
     // Implement the OnClickListener callbacks
     public void onClick(View v) {

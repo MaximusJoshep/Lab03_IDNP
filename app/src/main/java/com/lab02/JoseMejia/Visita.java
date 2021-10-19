@@ -28,9 +28,6 @@ public class Visita extends AppCompatActivity implements View.OnClickListener {
         dni = getIntent().getStringExtra("dni");
         nombres = getIntent().getStringExtra("nombres");
         direccion = getIntent().getStringExtra("direccion");
-
-
-        //info_paciente.setText("hola");
         guardar = (Button)findViewById(R.id.guardar);
         guardar.setOnClickListener(this);
 

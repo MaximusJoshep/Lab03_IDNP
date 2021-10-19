@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button paciente,visita,enviar;
+    Button button_paciente,button_visita,button_enviar;
     String dni,nombres,direccion,peso,presion,saturacion,temperatura;
     TextView info;
     EditText email;
@@ -21,20 +21,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         email=(EditText) findViewById(R.id.email);
-        paciente = (Button) findViewById(R.id.paciente);
-        paciente.setOnClickListener(this);
-
-        visita = (Button) findViewById(R.id.visita);
-        visita.setOnClickListener(this);
-
-        enviar = (Button) findViewById(R.id.enviar);
-        enviar.setOnClickListener(this);
-
+        button_paciente = (Button) findViewById(R.id.paciente);
+        button_paciente.setOnClickListener(this);
+        button_visita = (Button) findViewById(R.id.visita);
+        button_visita.setOnClickListener(this);
+        button_enviar = (Button) findViewById(R.id.enviar);
+        button_enviar.setOnClickListener(this);
         info = (TextView)findViewById(R.id.info);
         Bundle bundle=this.getIntent().getExtras();
+
         if(bundle!=null)
         {
-
             peso=bundle.getString("peso");
             presion=bundle.getString("presion");
             saturacion=bundle.getString("saturacion");
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             info.setText("Datos del paciente: "+nombres+"\n DNI:"+dni+"\n Direccion:"+direccion+"\n Peso:"+peso+"\n Presion:"+presion
                     +"\n Saturacion:"+saturacion+"\n Temperatura:"+temperatura);
         }
-
 
     }
 
