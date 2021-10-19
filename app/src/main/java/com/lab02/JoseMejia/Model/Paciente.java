@@ -1,6 +1,8 @@
 package com.lab02.JoseMejia.Model;
 
-public class Paciente {
+import java.io.Serializable;
+
+public class Paciente implements Serializable {
     private String nombre;
     private String dni;
     private String direccion;

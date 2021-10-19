@@ -1,4 +1,4 @@
-package com.lab02.JoseMejia;
+package com.lab02.JoseMejia.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,12 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lab02.JoseMejia.R;
+import com.lab02.JoseMejia.View.MainActivity;
+import com.lab02.JoseMejia.ViewModel.ViewModelVisitadores;
+
 public class Visita extends AppCompatActivity implements View.OnClickListener {
     EditText peso,presion,saturacion,temperatura;
     Object[] datos=new Object[4];
     Button guardar;
     TextView info_paciente;
     String dni,nombres,direccion;
+    ViewModelVisitadores obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +28,8 @@ public class Visita extends AppCompatActivity implements View.OnClickListener {
         presion=(EditText) findViewById(R.id.presion);
         saturacion=(EditText) findViewById(R.id.saturacion);
         temperatura=(EditText) findViewById(R.id.temperatura);
-
+        obj= (ViewModelVisitadores) getIntent().getSerializableExtra("paciente");
         info_paciente = (TextView)findViewById(R.id.info);
-        dni = getIntent().getStringExtra("dni");
-        nombres = getIntent().getStringExtra("nombres");
-        direccion = getIntent().getStringExtra("direccion");
         guardar = (Button)findViewById(R.id.guardar);
         guardar.setOnClickListener(this);
 
@@ -39,21 +41,14 @@ public class Visita extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId())
         {
             case R.id.guardar:
-                Intent in=new Intent(this,MainActivity.class);
+                Intent in=new Intent(this, MainActivity.class);
                 Bundle bundle1 = new Bundle();
+                ViewModelVisitadores viewm = new ViewModelVisitadores();
+                viewm=obj;
+                viewm.registrarVisita(peso.getText().toString(),presion.getText().toString(),
+                        saturacion.getText().toString(),temperatura.getText().toString());
 
-                datos[0]=peso.getText().toString();
-                datos[1]=presion.getText().toString();
-                datos[2]=saturacion.getText().toString();
-                datos[3]=temperatura.getText().toString();
-
-                bundle1.putString("dni",dni);
-                bundle1.putString("nombres",nombres);
-                bundle1.putString("direccion",direccion);
-                bundle1.putString("peso", (String) datos[0]);
-                bundle1.putString("presion",(String) datos[1]);
-                bundle1.putString("saturacion",(String) datos[2]);
-                bundle1.putString("temperatura",(String) datos[3]);
+                bundle1.putSerializable("paciente",viewm);
                 in.putExtras(bundle1);
                 startActivityForResult(in,222);
                 break;

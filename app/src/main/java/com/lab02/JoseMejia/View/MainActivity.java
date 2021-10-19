@@ -1,14 +1,15 @@
-package com.lab02.JoseMejia;
+package com.lab02.JoseMejia.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.lab02.JoseMejia.ViewModel.ViewModelVisitadores;
+import com.lab02.JoseMejia.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String dni,nombres,direccion,peso,presion,saturacion,temperatura;
     TextView info;
     EditText email;
-
+    ViewModelVisitadores obj;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -29,18 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_enviar.setOnClickListener(this);
         info = (TextView)findViewById(R.id.info);
         Bundle bundle=this.getIntent().getExtras();
-
-        if(bundle!=null)
+        obj= (ViewModelVisitadores) getIntent().getSerializableExtra("paciente");
+        if(obj!=null)
         {
-            peso=bundle.getString("peso");
-            presion=bundle.getString("presion");
-            saturacion=bundle.getString("saturacion");
-            temperatura=bundle.getString("temperatura");
-            dni=bundle.getString("dni");
-            nombres=bundle.getString("nombres");
-            direccion=bundle.getString("direccion");
-            info.setText("Datos del paciente: "+nombres+"\n DNI:"+dni+"\n Direccion:"+direccion+"\n Peso:"+peso+"\n Presion:"+presion
-                    +"\n Saturacion:"+saturacion+"\n Temperatura:"+temperatura);
+            info.setText(obj.getDataPaciente()+obj.getDataVisita());
         }
 
     }
@@ -54,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.visita:
                 Intent intent = new Intent(this, Visita.class);
-                intent.putExtra("dni", dni);
-                intent.putExtra("nombres", nombres);
-                intent.putExtra("direccion", direccion);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("paciente",obj);
+                intent.putExtras(bundle);
                 startActivityForResult(intent,222);
                 break;
             case R.id.enviar:

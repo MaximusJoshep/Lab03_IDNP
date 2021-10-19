@@ -1,4 +1,4 @@
-package com.lab02.JoseMejia;
+package com.lab02.JoseMejia.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.lab02.JoseMejia.R;
+import com.lab02.JoseMejia.View.MainActivity;
+import com.lab02.JoseMejia.ViewModel.ViewModelVisitadores;
+
+import java.io.Serializable;
 
 public class Paciente extends AppCompatActivity implements View.OnClickListener {
     EditText dni,nombres,direccion;
@@ -27,12 +33,16 @@ public class Paciente extends AppCompatActivity implements View.OnClickListener 
         switch (v.getId())
         {
             case R.id.registrar:
-                Intent in=new Intent(this,MainActivity.class);
+                Intent in=new Intent(this, MainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("dni",dni.getText().toString());
-                bundle.putString("nombres",nombres.getText().toString());
-                bundle.putString("direccion",direccion.getText().toString());
+                ViewModelVisitadores viewm = new ViewModelVisitadores();
+                viewm.registrarPaciente(nombres.getText().toString(),dni.getText().toString(),direccion.getText().toString());
+                System.out.println(nombres.getText().toString());
+
+                bundle.putSerializable("paciente",viewm);
+
                 in.putExtras(bundle);
+
                 startActivityForResult(in,222);
                 break;
         }

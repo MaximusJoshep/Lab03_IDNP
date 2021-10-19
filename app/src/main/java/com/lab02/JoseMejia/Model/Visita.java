@@ -1,6 +1,8 @@
 package com.lab02.JoseMejia.Model;
 
-public class Visita {
+import java.io.Serializable;
+
+public class Visita implements Serializable {
     private String peso;
     private String presion;
     private String saturacion;
@@ -11,6 +13,12 @@ public class Visita {
         this.presion = presion;
         this.saturacion = saturacion;
         this.temperatura = temperatura;
+    }
+    public Visita(){
+        this.peso = null;
+        this.presion = null;
+        this.saturacion = null;
+        this.temperatura = null;
     }
     //getters
     public String getPeso() {
